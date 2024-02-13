@@ -51,6 +51,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   Future getImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
@@ -66,19 +67,21 @@ class _ProfileBodyState extends State<ProfileBody> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(height: 20),
-        // CircleAvatar(
-        //   radius: 60,
-        //   backgroundImage: _image != null
-        //       ? FileImage(_image!)
-        //       : AssetImage('assets/teacher_photo.jpg'),
-        // ),
+        CircleAvatar(
+          radius: 60,
+          backgroundImage: _image != null
+              ? FileImage(_image!) as ImageProvider<Object>
+              : NetworkImage(
+                  'https://picsum.photos/200',
+                ),
+        ),
         SizedBox(height: 10),
         Text(
-          'Nom du Professeur',
+          'prof',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         Text(
-          'Email du Professeur',
+          'prof@gmail.com',
           style: TextStyle(fontSize: 18, color: Colors.grey),
         ),
         SizedBox(height: 20),
@@ -146,19 +149,22 @@ class _ProfileBodyState extends State<ProfileBody> {
                       leading: _selectedCategory == 'Étudiants'
                           ? CircleAvatar(
                               backgroundImage:
-                                  AssetImage('assets/student_photo.jpg'),
+                                  AssetImage('images/student.jpeg'),
                             )
                           : _selectedCategory == 'Cours'
                               ? CircleAvatar(
                                   backgroundImage:
-                                      AssetImage('assets/course_photo.jpg'),
+                                      AssetImage('images/cour.jpeg'),
                                 )
                               : _selectedCategory == 'Quiz'
                                   ? CircleAvatar(
                                       backgroundImage:
-                                          AssetImage('assets/quiz_photo.jpg'),
+                                          AssetImage('images/QUIZE.png'),
                                     )
-                                  : null,
+                                  : CircleAvatar(
+                                      backgroundImage:
+                                          NetworkImage('URL_de_votre_image'),
+                                    ),
                       title: Text(_data[_selectedCategory]![index]),
                       onTap: () {
                         if (_selectedCategory == 'Étudiants') {
@@ -197,8 +203,6 @@ class _ProfileBodyState extends State<ProfileBody> {
   }
 
   void _showStudentDetails(String studentName) {
-    // Trouver l'étudiant dans les données et extraire les détails
-    // Dans cet exemple, nous allons simplement afficher les détails dans une boîte de dialogue
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -220,8 +224,6 @@ class _ProfileBodyState extends State<ProfileBody> {
   }
 
   void _showCourseDetails(String courseName) {
-    // Trouver le cours dans les données et extraire les détails
-    // Dans cet exemple, nous allons simplement afficher les détails dans une boîte de dialogue
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -242,8 +244,6 @@ class _ProfileBodyState extends State<ProfileBody> {
   }
 
   void _showQuizDetails(String quizName) {
-    // Trouver le quiz dans les données et extraire les détails
-    // Dans cet exemple, nous allons simplement afficher les détails dans une boîte de dialogue
     showDialog(
       context: context,
       builder: (BuildContext context) {

@@ -52,7 +52,7 @@ class MyApp1 extends StatelessWidget {
                 } else if (CategoryData.id == "C2") {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>LoginScreen1()),
+                    MaterialPageRoute(builder: (context) => LoginScreen1()),
                   );
                 }
               }),
